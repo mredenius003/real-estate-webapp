@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.mredenius003.realestatewebapp.model.User;
 import com.mredenius003.realestatewebapp.repository.UserRepository;
+import com.mredenius003.realestatewebapp.utils.MockDataGenerator;
 
 public class UserServiceTest {
 
@@ -28,7 +29,7 @@ public class UserServiceTest {
     public void setUp() {
         initMocks(this);
         userServiceUnderTest = new UserService(mockUserRepository, mockBCryptPasswordEncoder);
-        user = User.builder().id(1).name("Redenius").lastName("Matt").email("sumredhed567@boredmail.com").build();
+        user = MockDataGenerator.generateUser();
 
         Mockito.when(mockUserRepository.save(any())).thenReturn(user);
         Mockito.when(mockUserRepository.findByEmail(anyString())).thenReturn(user);
@@ -36,25 +37,13 @@ public class UserServiceTest {
 
     @Test
     public void testFindUserByEmail() {
-        // Setup
-        final String email = "test@test.com";
-
-        // Run the test
-        final User result = userServiceUnderTest.findUserByEmail(email);
-
-        // Verify the results
-        assertEquals(email, result.getEmail());
+        final User result = userServiceUnderTest.findUserByEmail(user.getEmail());
+        assertEquals(user, result);
     }
 
     @Test
     public void testSaveUser() {
-        // Setup
-        final String email = "test@test.com";
-
-        // Run the test
-        User result = userServiceUnderTest.saveUser(User.builder().email(email).build());
-
-        // Verify the results
-        assertEquals(email, result.getEmail());
+        User result = userServiceUnderTest.saveUser(user);
+        assertEquals(user, result);
     }
 }

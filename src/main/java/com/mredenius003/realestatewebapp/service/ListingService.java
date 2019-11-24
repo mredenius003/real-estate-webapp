@@ -57,7 +57,7 @@ public class ListingService {
         return listings;
     }
 
-    public void saveListing(Listing listing) {
-        listingRepository.save(listing);
+    public Listing saveListing(Listing listing) {
+        return listingRepository.save(listing);
     }
 }
