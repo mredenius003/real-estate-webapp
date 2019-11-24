@@ -23,8 +23,9 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        return user;
     }
 }
