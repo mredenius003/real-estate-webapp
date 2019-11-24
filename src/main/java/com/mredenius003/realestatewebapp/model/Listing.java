@@ -52,26 +52,26 @@ public class Listing {
     @Column(name = "neighborhood")
     private String neighborhood;
     
-    @Column(name = "date")
+    @Column(name = "dateListed")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NotNull
     private LocalDate dateListed;
 
-    @Column(name = "numBedroom")
+    @Column(name = "numBedrooms")
     @NotEmpty(message = "*Please provide the number of bedrooms.")
     private Integer numBedrooms;
     
     @Column(name = "image")
     private List<String> imagePaths;
 
-    @Column(name = "bathroom")
+    @Column(name = "numBathrooms")
     @NotEmpty(message = "*Please provide the number of bathrooms.")
     private Integer numBathrooms;
 
     @Column(name = "garageSize")
     private Integer garageSize;
 
-    @Column(name = "sqaureFootage")
+    @Column(name = "squareFootage")
     @NotEmpty(message = "*Please provide the square footage.")
     private Integer squareFootage;
 
