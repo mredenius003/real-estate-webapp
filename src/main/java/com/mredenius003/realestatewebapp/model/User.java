@@ -17,11 +17,9 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @Entity
 @Table(name = "user")
 public class User {
@@ -48,8 +46,12 @@ public class User {
     @Column(name = "last_name")
     @NotEmpty(message = "*Please provide your last name")
     private String lastName;
-    
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_listing", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "listing_id"))
     private Set<Listing> listings;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 }

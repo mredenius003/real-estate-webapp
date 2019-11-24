@@ -1,7 +1,7 @@
 package com.mredenius003.realestatewebapp.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +14,9 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @Entity
 @Table(name = "listing")
 public class Listing {
@@ -64,7 +62,7 @@ public class Listing {
     private Integer numBedrooms;
 
     @Column(name = "imagePaths")
-    private List<String> imagePaths;
+    private HashSet<String> imagePaths;
 
     @Column(name = "numBathrooms")
     @NotEmpty(message = "*Please provide the number of bathrooms.")

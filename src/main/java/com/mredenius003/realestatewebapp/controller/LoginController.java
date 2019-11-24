@@ -30,7 +30,7 @@ public class LoginController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
-        User user = User.builder().build();
+        User user = new User();
         modelAndView.addObject("user", user);
         modelAndView.setViewName("registration");
         return modelAndView;
@@ -49,7 +49,7 @@ public class LoginController {
         } else {
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", User.builder().build());
+            modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
 
         }

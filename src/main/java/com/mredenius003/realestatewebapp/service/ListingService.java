@@ -11,7 +11,7 @@ import com.mredenius003.realestatewebapp.model.User;
 import com.mredenius003.realestatewebapp.repository.ListingRepository;
 import com.mredenius003.realestatewebapp.repository.UserRepository;
 
-@Service("userService")
+@Service("listingService")
 public class ListingService {
 
     private final UserRepository userRepository;

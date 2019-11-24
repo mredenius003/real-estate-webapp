@@ -3,9 +3,7 @@ package com.mredenius003.realestatewebapp.utils;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -31,7 +29,7 @@ public final class MockDataGenerator {
     private static final String NEIGHBORHOOD = "Marina Shores";
     private static final LocalDateTime DATE_LISTED = LocalDateTime
             .ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault());
-    private static final List<String> IMAGE_PATHS = new ArrayList<String>();
+    private static final HashSet<String> IMAGE_PATHS = new HashSet<String>();
     private static final String IMAGE_PATH = "/matt/home/images/";
     private static final String DESCRIPTION = "This is one REALLY cool house!.";
     private static final Set<Listing> LISTINGS = new HashSet<Listing>();
@@ -46,13 +44,32 @@ public final class MockDataGenerator {
     }
 
     public static User generateUser() {
-        return User.builder().name(FIRST_NAME).lastName(LAST_NAME).email(EMAIL).listings(LISTINGS).build();
+        User user = new User();
+        user.setName(FIRST_NAME);
+        user.setLastName(LAST_NAME);
+        user.setEmail(EMAIL);
+        user.setListings(LISTINGS);
+        return user;
     }
 
     public static Listing generateListing(int id) {
-        return Listing.builder().id(id).mls(RANDOM.nextLong()).street(STREET).street2(STREET_2).city(CITY).state(STATE)
-                .zipcode(ZIPCODE).neighborhood(NEIGHBORHOOD).dateListed(DATE_LISTED).numBedrooms(RANDOM.nextInt())
-                .imagePaths(IMAGE_PATHS).numBathrooms(RANDOM.nextInt()).garageSize(RANDOM.nextInt())
-                .squareFootage(RANDOM.nextInt()).lotSize(RANDOM.nextDouble()).description(DESCRIPTION).build();
+        Listing listing = new Listing();
+        listing.setId(id);
+        listing.setMls(RANDOM.nextLong());
+        listing.setStreet(STREET);
+        listing.setStreet2(STREET_2);
+        listing.setCity(CITY);
+        listing.setState(STATE);
+        listing.setZipcode(ZIPCODE);
+        listing.setNeighborhood(NEIGHBORHOOD);
+        listing.setDateListed(DATE_LISTED);
+        listing.setNumBedrooms(RANDOM.nextInt());
+        listing.setImagePaths(IMAGE_PATHS);
+        listing.setNumBathrooms(RANDOM.nextInt());
+        listing.setGarageSize(RANDOM.nextInt());
+        listing.setSquareFootage(RANDOM.nextInt());
+        listing.setLotSize(RANDOM.nextDouble());
+        listing.setDescription(DESCRIPTION);
+        return new Listing();
     }
 }
