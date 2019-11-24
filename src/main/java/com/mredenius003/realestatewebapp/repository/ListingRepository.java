@@ -1,5 +1,7 @@
 package com.mredenius003.realestatewebapp.repository;
 
+import java.util.Set;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,15 +18,15 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
 
     Listing findByMls(long mls);
 
-    Listing findByCity(String city);
+    Set<Listing> findByCity(String city);
 
-    Listing findByState(String state);
+    Set<Listing> findByState(String state);
 
-    Listing findByZipcode(String zipcode);
+    Set<Listing> findByZipcode(String zipcode);
 
-    Listing findByNumBedrooms(Integer numBedrooms);
+    Set<Listing> findByNumBedrooms(Integer numBedrooms);
 
-    Listing findByNumBathrooms(Integer numBathrooms);
+    Set<Listing> findByNumBathrooms(Integer numBathrooms);
 
-    Listing findByLotSize(Double lotSize);
+    Set<Listing> findByLotSize(Double lotSize);
 }

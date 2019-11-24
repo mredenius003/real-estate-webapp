@@ -1,6 +1,6 @@
 package com.mredenius003.realestatewebapp.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -49,5 +49,5 @@ public class User {
     
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_listing", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "listing_id"))
-    private List<Listing> roles;
+    private Set<Listing> listings;
 }
