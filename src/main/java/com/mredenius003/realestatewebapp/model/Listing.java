@@ -1,6 +1,6 @@
 package com.mredenius003.realestatewebapp.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -53,17 +53,17 @@ public class Listing {
 
     @Column(name = "neighborhood")
     private String neighborhood;
-    
+
     @Column(name = "dateListed")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NotNull
-    private LocalDate dateListed;
+    private LocalDateTime dateListed;
 
     @Column(name = "numBedrooms")
     @NotEmpty(message = "*Please provide the number of bedrooms.")
     private Integer numBedrooms;
-    
-    @Column(name = "image")
+
+    @Column(name = "imagePaths")
     private List<String> imagePaths;
 
     @Column(name = "numBathrooms")
