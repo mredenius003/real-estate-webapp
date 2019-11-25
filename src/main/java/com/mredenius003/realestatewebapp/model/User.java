@@ -47,6 +47,9 @@ public class User {
     @NotEmpty(message = "*Please provide your last name")
     private String lastName;
 
+    @Column(name = "active")
+    private int active;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_listing", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "listing_id"))
     private Set<Listing> listings;
