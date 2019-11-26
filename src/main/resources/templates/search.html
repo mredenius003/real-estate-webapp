@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Home</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+<link rel="stylesheet"
+     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+     src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+     src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+     <form th:action="@{/home}" method="get">
+          <button class="btn btn-md btn-warning btn-block" type="Submit">Home</button>
+     </form>
+     <div class="container">
+          <img th:src="@{/images/mountain_logo.jpg}"
+               class="img-responsive center-block" width="800"
+               height="500" alt="Logo" />
+          <form th:action="@{/viewAllListings}" method="GET"
+               class="form-signin">
+               <h3 class="form-signin-heading">Search</h3>
+               <br /> <input type="text" id="search" name="search"
+                    th:placeholder="Search" class="form-control" /> <br />
+               <div class="btn-group dropdown">
+                    <button class="btn btn-default dropdown-toggle"
+                         type="button" id="dropdownMenu1"
+                         data-toggle="dropdown" aria-expanded="true">
+                         Search Option <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu"
+                         aria-labelledby="dropdownMenu1">
+                         <li role="presentation">
+                              <form th:action="@{/viewAllListings}"
+                                   method="get">
+                                   <input type="hidden" name="string"
+                                        id="string"
+                                        th:value="mls" />
+                                   <button
+                                        class="btn btn-md btn-primary btn-block"
+                                        type="Submit">MLS</button>
+                              </form>
+                         </li>
+                         <li role="presentation">
+                              <form th:action="@{/viewAllListings}"
+                                   method="get">
+                                   <input type="hidden" name="string"
+                                        id="string"
+                                        th:value="city" />
+                                   <button
+                                        class="btn btn-md btn-primary btn-block"
+                                        type="Submit">City</button>
+                              </form>
+                         </li>
+                         <li role="presentation">
+                              <form th:action="@{/viewAllListings}"
+                                   method="get">
+                                   <input type="hidden" name="string"
+                                        id="string"
+                                        th:value="state" />
+                                   <button
+                                        class="btn btn-md btn-primary btn-block"
+                                        type="Submit">State</button>
+                              </form>
+                         </li>
+                         <li role="presentation">
+                              <form th:action="@{/viewAllListings}"
+                                   method="get">
+                                   <input type="hidden" name="string"
+                                        id="string"
+                                        th:value="zipcode" />
+                                   <button
+                                        class="btn btn-md btn-primary btn-block"
+                                        type="Submit">Zipcode</button>
+                              </form>
+                         </li>
+                         <li role="presentation">
+                              <form th:action="@{/viewAllListings}"
+                                   method="get">
+                                   <input type="hidden" name="string"
+                                        id="string"
+                                        th:value="bedrooms" />
+                                   <button
+                                        class="btn btn-md btn-primary btn-block"
+                                        type="Submit">Bedrooms</button>
+                              </form>
+                         </li>
+                         <li role="presentation">
+                              <form th:action="@{/viewAllListings}"
+                                   method="get">
+                                   <input type="hidden" name="string"
+                                        id="string"
+                                        th:value="bathrooms" />
+                                   <button
+                                        class="btn btn-md btn-primary btn-block"
+                                        type="Submit">Bathrooms</button>
+                              </form>
+                         </li>
+                         <li role="presentation">
+                              <form th:action="@{/viewAllListings}"
+                                   method="get">
+                                   <input type="hidden" name="string"
+                                        id="string"
+                                        th:value="sqft" />
+                                   <button
+                                        class="btn btn-md btn-primary btn-block"
+                                        type="Submit">Square
+                                        Feet</button>
+                              </form>
+                         </li>
+                    </ul>
+               </div>
+          </form>
+     </div>
+</body>
+</html>

@@ -1,7 +1,3 @@
-.body {
- background-color: gray;
-}
-
 .wrapper {
  margin-top: 80px;
  margin-bottom: 20px;
@@ -41,4 +37,10 @@ input[type="password"] {
 
 .table-row {
  cursor: pointer;
+}
+
+.btn-group > .btn,
+.btn-group-vertical > .btn {
+  position: relative;
+  float: left;
 }

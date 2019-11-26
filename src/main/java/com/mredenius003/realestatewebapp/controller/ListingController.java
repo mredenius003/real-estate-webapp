@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -27,6 +29,26 @@ import com.mredenius003.realestatewebapp.service.UserService;
 
 @Controller
 public class ListingController {
+    /**
+     * Strings used to compare for the type of search selected.
+     */
+    private static final String MLS = "mls";
+    private static final String CITY = "city";
+    private static final String STATE = "state";
+    private static final String ZIPCODE = "zipcode";
+    private static final String BEDROOMS = "bedrooms";
+    private static final String BATHROOMS = "bathrooms";
+    private static final String SQUARE_FOOTAGE = "sqft";
+    private static final Set<String> VALID_KEYS = new HashSet<String>();
+    static {
+        VALID_KEYS.add(MLS);
+        VALID_KEYS.add(CITY);
+        VALID_KEYS.add(STATE);
+        VALID_KEYS.add(ZIPCODE);
+        VALID_KEYS.add(BEDROOMS);
+        VALID_KEYS.add(BATHROOMS);
+        VALID_KEYS.add(SQUARE_FOOTAGE);
+    }
     @Autowired
     private UserService userService;
 
@@ -49,6 +71,13 @@ public class ListingController {
         User user = userService.getActiveUser();
         modelAndView.addObject("listings", sortListingsByDate(listingService.findListingsByUser(user)));
         modelAndView.setViewName("listings/viewUserListings");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView viewSearch() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("search");
         return modelAndView;
     }
 
@@ -93,19 +122,30 @@ public class ListingController {
         return viewUserListings();
     }
 
-    @RequestMapping(value = "/listings/viewListing", method = RequestMethod.POST)
+    @RequestMapping(value = "/viewListing", method = RequestMethod.POST)
     public ModelAndView viewListing(@RequestParam("listing") String mls) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("listing", listingService.findByMls(mls));
-        modelAndView.setViewName("listings/viewListing");
+        modelAndView.setViewName("viewListing");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/listings/viewAllListings", method = RequestMethod.GET)
-    public ModelAndView viewAllListings() {
+    @RequestMapping(value = "/viewAllListings", method = RequestMethod.GET)
+    public ModelAndView viewAllListings(@RequestParam("key") Optional<String> key,
+            @RequestParam("search") Optional<String> search) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("listings", sortListingsByDate(listingService.findAll()));
-        modelAndView.setViewName("listings/viewAllListings");
+        List<Listing> listings = null;
+
+        // If there is a search resolve it.
+        if (key.isPresent() && search.isPresent()) {
+            listings = resolveSearch(key.get(), search.get());
+        } else {
+
+            // Else show all.
+            listings = listingService.findAll();
+        }
+        modelAndView.addObject("listings", listings);
+        modelAndView.setViewName("viewAllListings");
         return modelAndView;
     }
 
@@ -135,5 +175,55 @@ public class ListingController {
             }
         });
         return listings;
+    }
+
+    /*
+     * Helper method to resolve a search for listings.
+     */
+    private List<Listing> resolveSearch(String key, String search) {
+        List<Listing> listings = new ArrayList<Listing>();
+        ;
+        if (VALID_KEYS.contains(key)) {
+            switch (key) {
+            case MLS:
+                listings.add(listingService.findByMls(search));
+                break;
+            case CITY:
+                listings.addAll(listingService.findByCity(search));
+                break;
+            case STATE:
+                listings.addAll(listingService.findByState(search));
+                break;
+            case ZIPCODE:
+                listings.addAll(listingService.findByZipcode(search));
+                break;
+            case BEDROOMS:
+                if (tryParse(search) != null) {
+                    listings.addAll(listingService.findByNumBedrooms(tryParse(search)));
+                    break;
+                }
+            case BATHROOMS:
+                if (tryParse(search) != null) {
+                    listings.addAll(listingService.findByNumBathrooms(tryParse(search)));
+                    break;
+                }
+            case SQUARE_FOOTAGE:
+                if (tryParse(search) != null) {
+                    listings.addAll(listingService.findBySize(tryParse(search)));
+                    break;
+                }
+            default:
+                return sortListingsByDate(listingService.findAll());
+            }
+        }
+        return sortListingsByDate(listingService.findAll());
+    }
+
+    private Integer tryParse(String text) {
+        try {
+            return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }

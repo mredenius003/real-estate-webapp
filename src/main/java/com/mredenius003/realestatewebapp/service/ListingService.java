@@ -12,6 +12,11 @@ import com.mredenius003.realestatewebapp.model.Listing;
 import com.mredenius003.realestatewebapp.model.User;
 import com.mredenius003.realestatewebapp.repository.ListingRepository;
 
+/**
+ * Service to save and relay different queries for {@link Listing}
+ * @author mrede003
+ *
+ */
 @Service("listingService")
 public class ListingService {
 
@@ -57,8 +62,8 @@ public class ListingService {
         return Collections.unmodifiableSet(listingRepository.findByNumBathrooms(numBathrooms));
     }
 
-    public Set<Listing> findByLotSize(Double lotSize) {
-        return Collections.unmodifiableSet(listingRepository.findByLotSize(lotSize));
+    public Set<Listing> findBySize(Integer size) {
+        return Collections.unmodifiableSet(listingRepository.findByHomeSize(size));
     }
 
     public Set<Listing> findListingsByUser(User user) {

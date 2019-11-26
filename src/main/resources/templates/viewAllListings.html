@@ -47,7 +47,7 @@
                          th:each="listing : ${listings}">
                          <td>
                               <form method="POST"
-                                   th:action="@{/listings/viewListing}">
+                                   th:action="@{/viewListing}">
                                    <input type="hidden" name="listing"
                                         id="listing"
                                         th:value="${listing.mls}" />

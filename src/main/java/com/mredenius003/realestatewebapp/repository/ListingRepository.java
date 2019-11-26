@@ -28,5 +28,5 @@ public interface ListingRepository extends JpaRepository<Listing, Integer> {
 
     Set<Listing> findByNumBathrooms(Integer numBathrooms);
 
-    Set<Listing> findByLotSize(Double lotSize);
+    Set<Listing> findByHomeSize(Integer size);
 }
