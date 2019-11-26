@@ -15,70 +15,178 @@
 </head>
 <body>
      <form th:action="@{/home}" method="get">
-          <button class="btn btn-md btn-warning btn-block" type="Submit">Go
-               To Login Page</button>
+          <button class="btn btn-md btn-warning btn-block" type="Submit">
+               <b>Home</b>
+          </button>
      </form>
-
      <div class="container">
           <div class="row">
                <div class="col-md-6 col-md-offset-3">
                     <form autocomplete="off" action="#"
-                         th:action="@{/registration}"
-                         th:object="${user}" method="post"
+                         th:action="@{/listings/editListing}"
+                         th:object="${listing}" method="post"
                          class="form-horizontal" role="form">
-                         <h2>Registration Form</h2>
+                         <h2>Listing Form</h2>
                          <div class="form-group">
                               <div class="col-sm-9">
                                    <label
-                                        th:if="${#fields.hasErrors('name')}"
-                                        th:errors="*{name}"
+                                        th:if="${#fields.hasErrors('mls')}"
+                                        th:errors="*{mls}"
                                         class="validation-message"></label>
-                                   <input type="text" th:field="*{name}"
-                                        placeholder="Name"
-                                        class="form-control" />
-                              </div>
-                         </div>
-
-                         <div class="form-group">
-                              <div class="col-sm-9">
-                                   <label
-                                        th:if="${#fields.hasErrors('lastName')}"
-                                        th:errors="*{lastName}"
-                                        class="validation-message"></label>
-                                   <input type="text"
-                                        th:field="*{lastName}"
-                                        placeholder="Last Name"
+                                   <input type="text" th:field="*{mls}"
+                                        placeholder="Unique Listing Number"
                                         class="form-control" />
                               </div>
                          </div>
                          <div class="form-group">
                               <div class="col-sm-9">
-                                   <input type="text"
-                                        th:field="*{email}"
-                                        placeholder="Email"
-                                        class="form-control" /> <label
-                                        th:if="${#fields.hasErrors('email')}"
-                                        th:errors="*{email}"
+                                   <label
+                                        th:if="${#fields.hasErrors('street')}"
+                                        th:errors="*{street}"
                                         class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{street}"
+                                        placeholder="Street Address"
+                                        class="form-control" />
                               </div>
                          </div>
                          <div class="form-group">
                               <div class="col-sm-9">
-                                   <input type="password"
-                                        th:field="*{password}"
-                                        placeholder="Password"
-                                        class="form-control" /> <label
-                                        th:if="${#fields.hasErrors('password')}"
-                                        th:errors="*{password}"
+                                   <label
+                                        th:if="${#fields.hasErrors('street2')}"
+                                        th:errors="*{street2}"
                                         class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{street2}"
+                                        placeholder="Street Address cont..."
+                                        class="form-control" />
                               </div>
                          </div>
-
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('city')}"
+                                        th:errors="*{city}"
+                                        class="validation-message"></label>
+                                   <input type="text" th:field="*{city}"
+                                        placeholder="City"
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('state')}"
+                                        th:errors="*{state}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{state}"
+                                        placeholder="State"
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('zipcode')}"
+                                        th:errors="*{zipcode}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{zipcode}"
+                                        placeholder="Zipcode"
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('neighborhood')}"
+                                        th:errors="*{neighborhood}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{neighborhood}"
+                                        placeholder="Neighborhood"
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         http://localhost:8080/home?
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('numBedrooms')}"
+                                        th:errors="*{numBedrooms}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{numBedrooms}"
+                                        placeholder="Number of bedrooms"
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('numBathrooms')}"
+                                        th:errors="*{numBathrooms}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{numBathrooms}"
+                                        placeholder="Number of bathrooms."
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('garageSize')}"
+                                        th:errors="*{garageSize}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{garageSize}"
+                                        placeholder="Garage Size in sqft"
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('homeSize')}"
+                                        th:errors="*{homeSize}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{homeSize}"
+                                        placeholder="Size of your home in sqft"
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('lotSize')}"
+                                        th:errors="*{lotSize}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{lotSize}"
+                                        placeholder="Size of your lot in acres"
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('description')}"
+                                        th:errors="*{description}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{description}"
+                                        placeholder="Please enter a description of your listing...."
+                                        class="form-control" />
+                              </div>
+                         </div>
                          <div class="form-group">
                               <div class="col-sm-9">
                                    <button type="submit"
-                                        class="btn btn-primary btn-block">Register
-                                        User</button>
+                                        class="btn btn-primary btn-block">Save
+                                        Listing</button>
                               </div>
                          </div>
                          <span th:utext="${successMessage}"></span>

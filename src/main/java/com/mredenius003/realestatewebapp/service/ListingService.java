@@ -23,7 +23,7 @@ public class ListingService {
         this.listingRepository = listingRepository;
     }
 
-    public Listing findByMls(long mls) {
+    public Listing findByMls(String mls) {
         return listingRepository.findByMls(mls);
     }
 

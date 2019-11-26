@@ -16,7 +16,7 @@ import com.mredenius003.realestatewebapp.model.Listing;
 @Repository("listingRepository")
 public interface ListingRepository extends JpaRepository<Listing, Long> {
 
-    Listing findByMls(long mls);
+    Listing findByMls(String mls);
 
     Set<Listing> findByCity(String city);
 

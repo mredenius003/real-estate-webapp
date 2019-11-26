@@ -9,10 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.mredenius003.realestatewebapp.validator.api.EnsureNumber;
 
 import lombok.Data;
 
@@ -21,64 +26,85 @@ import lombok.Data;
 @Table(name = "listing")
 public class Listing {
 
+    private static final String LONG_ENTRY_ERROR_MESSAGE = "*This input is too long";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
+    @NotEmpty
+    @Size(min = 1, max = 10)
+    @EnsureNumber(message = "*Please use only numbers with a max lengh of 10.")
     @Column(name = "mls")
-    @NotNull
-    private long mls;
+    private String mls;
 
     @Column(name = "street")
+    @Size(max = 199, message = LONG_ENTRY_ERROR_MESSAGE)
     @NotEmpty(message = "*Please provide a street.")
     private String street;
 
+    @Size(max = 199, message = LONG_ENTRY_ERROR_MESSAGE)
     @Column(name = "street2")
     private String street2;
 
+    @Size(max = 99, message = LONG_ENTRY_ERROR_MESSAGE)
     @Column(name = "city")
     @NotEmpty(message = "*Please provide a city.")
     private String city;
 
+    @Size(max = 13, message = LONG_ENTRY_ERROR_MESSAGE)
     @Column(name = "state")
     @NotEmpty(message = "*Please provide a state.")
     private String state;
 
+    @Size(min = 6, max = 6)
+    @EnsureNumber(message = "*Please enter a valid 6 digit zipcode.")
     @Column(name = "zipcode")
     @NotEmpty(message = "*Please provide a zipcode.")
     private String zipcode;
 
+    @Size(max = 199, message = LONG_ENTRY_ERROR_MESSAGE)
     @Column(name = "neighborhood")
     private String neighborhood;
 
     @Column(name = "dateListed")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @NotNull
     private LocalDateTime dateListed;
 
+    @Max(value = 99, message = "*No way you have that many bedrooms.")
+    @Min(value = 0, message = "*Please provide a number of bedrooms greater >= 0")
     @Column(name = "numBedrooms")
-    @NotEmpty(message = "*Please provide the number of bedrooms.")
+    @NotNull(message = "*Please provide the number of bedrooms.")
     private Integer numBedrooms;
 
     @Column(name = "imagePaths")
     private HashSet<String> imagePaths;
 
+    @Max(value = 99, message = "*No way you have that many bathrooms.")
+    @Min(value = 0, message = "*Please provide a number of bathrooms >= 0")
     @Column(name = "numBathrooms")
-    @NotEmpty(message = "*Please provide the number of bathrooms.")
+    @NotNull(message = "*Please provide the number of bathrooms.")
     private Integer numBathrooms;
 
+    @Max(value = 99999999, message = "*No way your garage is that big.")
+    @Min(value = 0, message = "*Please provide a garage size >= 0")
     @Column(name = "garageSize")
     private Integer garageSize;
 
+    @Max(value = 99999999, message = "*No way your house is that big.")
+    @Min(value = 0, message = "*Please provide a home size >= 0")
     @Column(name = "squareFootage")
-    @NotEmpty(message = "*Please provide the square footage.")
-    private Integer squareFootage;
+    @NotNull(message = "*Please provide the size of your home.")
+    private Integer homeSize;
 
+    @Max(value = 99999999, message = "*No way your lot is that big.")
+    @Min(value = 0, message = "*Please provide a lot size >= 0")
     @Column(name = "lotSize")
-    @NotEmpty(message = "*Please provide the lot size in acres.")
+    @NotNull(message = "*Please provide the lot size in acres.")
     private Double lotSize;
 
+    @Size(max = 1500, message = "*Can you provide a less wordy description?")
     @Column(name = "description")
     @NotEmpty(message = "*Please provide a description")
     private String description;

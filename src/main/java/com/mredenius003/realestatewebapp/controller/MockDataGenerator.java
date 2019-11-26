@@ -1,4 +1,4 @@
-package com.mredenius003.realestatewebapp.utils;
+package com.mredenius003.realestatewebapp.controller;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -27,8 +27,7 @@ public final class MockDataGenerator {
     private static final String STATE = "Virginia";
     private static final String ZIPCODE = "23451";
     private static final String NEIGHBORHOOD = "Marina Shores";
-    private static final LocalDateTime DATE_LISTED = LocalDateTime
-            .ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault());
+    private static final LocalDateTime DATE_LISTED = LocalDateTime.now();
     private static final HashSet<String> IMAGE_PATHS = new HashSet<String>();
     private static final String IMAGE_PATH = "/matt/home/images/";
     private static final String DESCRIPTION = "This is one REALLY cool house!.";
