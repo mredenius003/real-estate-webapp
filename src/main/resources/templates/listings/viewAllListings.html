@@ -4,8 +4,7 @@
      xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Add a Listing</title>
-<link rel="stylesheet" type="text/css"
-     th:href="@{/css/registration.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
 <link rel="stylesheet"
      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -19,5 +18,73 @@
                <b>Home</b>
           </button>
      </form>
+     <div class="container">
+          <table class="table table-striped">
+               <thead class="thead-dark">
+                    <tr>
+                         <th scope="col">View</th>
+                         <th scope="col">MLS</th>
+                         <th scope="col">Street</th>
+                         <th scope="col">Street2</th>
+                         <th scope="col">City</th>
+                         <th scope="col">State</th>
+                         <th scope="col">Zipcode</th>
+                         <th scope="col">Neighborhood</th>
+                         <th scope="col">Date Listed</th>
+                         <th scope="col">Bedrooms</th>
+                         <th scope="col">Bathrooms</th>
+                         <th scope="col">Garage Size Sqft</th>
+                         <th scope="col">Home Size Sqft</th>
+                         <th scope="col">Lot Size Acre</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <tr th:if="${listings.empty}">
+                         <td colspan="13">No Listings Available</td>
+                    </tr>
+                    <tr class='clickable'
+                         th:each="listing : ${listings}">
+                         <td>
+                              <form method="POST" th:action="@{/listings/viewListing}">
+                                   <input type="hidden" name="listing"
+                                        id="listing"
+                                        th:value="${listing.mls}" />
+                                   <button type="submit" name="submit"
+                                        value="value"
+                                        class="btn">View</button>
+                              </form>
+                         </td>
+                         <td><span th:text="${listing.mls}">
+                                   mls </span></td>
+                         <td><span th:text="${listing.street}">
+                                   street </span></td>
+                         <td><span th:text="${listing.street2}">
+                                   street2 </span>
+                         <td><span th:text="${listing.city}">
+                                   city </span>
+                         <td><span th:text="${listing.state}">
+                                   state </span>
+                         <td><span th:text="${listing.zipcode}">
+                                   zipcode </span>
+                         <td><span
+                              th:text="${listing.neighborhood}">
+                                   neighborhood </span>
+                         <td><span th:text="${listing.dateListed}">
+                                   street </span>
+                         <td><span th:text="${listing.numBedrooms}">
+                                   numBedrooms </span>
+                         <td><span
+                              th:text="${listing.numBathrooms}">
+                                   numBathrooms </span>
+                         <td><span th:text="${listing.garageSize}">
+                                   garageSize </span>
+                         <td><span th:text="${listing.homeSize}">
+                                   homeSize </span>
+                         <td><span th:text="${listing.lotSize}">
+                                   lotSize </span>
+                    </tr>
+               </tbody>
+          </table>
+     </div>
 </body>
 </html>

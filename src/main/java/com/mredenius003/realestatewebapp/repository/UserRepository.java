@@ -12,7 +12,7 @@ import com.mredenius003.realestatewebapp.model.User;
  *
  */
 @Repository("userRepository")
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByEmail(String email);
 }

@@ -48,7 +48,7 @@ public class UserServiceTest {
 
     @Test
     public void testSaveUser() {
-        User result = userServiceUnderTest.saveUser(user);
+        User result = userServiceUnderTest.saveNewUser(user);
         assertEquals(user, result);
     }
 }

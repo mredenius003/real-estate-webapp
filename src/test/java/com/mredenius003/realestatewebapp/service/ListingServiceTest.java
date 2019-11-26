@@ -25,14 +25,15 @@ public class ListingServiceTest {
     private ListingRepository mockListingRepository;
     @Mock
     private UserRepository mockUserRepository;
-
+    @Mock
+    private UserService mockUserService;
     private ListingService listingServiceUnderTest;
     private Listing listing;
 
     @BeforeEach
     public void setUp() {
         initMocks(this);
-        listingServiceUnderTest = new ListingService(mockUserRepository, mockListingRepository);
+        listingServiceUnderTest = new ListingService(mockListingRepository, mockUserService);
         Mockito.when(mockListingRepository.save(any())).thenReturn(listing);
     }
 

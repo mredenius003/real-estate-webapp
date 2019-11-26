@@ -1,6 +1,12 @@
 package com.mredenius003.realestatewebapp.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -11,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mredenius003.realestatewebapp.model.Listing;
@@ -36,24 +43,24 @@ public class ListingController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/listings/viewAllListings", method = RequestMethod.GET)
-    public ModelAndView showAllListings() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("listings/viewAllListings");
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/listings/viewUserListings", method = RequestMethod.GET)
-    public ModelAndView showUserListings() {
+    public ModelAndView viewUserListings() {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getActiveUser();
+        modelAndView.addObject("listings", sortListingsByDate(listingService.findListingsByUser(user)));
         modelAndView.setViewName("listings/viewUserListings");
         return modelAndView;
     }
 
     @RequestMapping(value = "/listings/editListing", method = RequestMethod.GET)
-    public ModelAndView editListing() {
+    public ModelAndView editListing(@RequestParam("listing") Optional<String> mls) {
         ModelAndView modelAndView = new ModelAndView();
-        Listing listing = new Listing();
+        Listing listing = null;
+        if (mls.isPresent()) {
+            listing = listingService.findByMls(mls.get());
+        } else {
+            listing = new Listing();
+        }
         modelAndView.addObject("listing", listing);
         modelAndView.setViewName("listings/editListing");
         return modelAndView;
@@ -65,16 +72,44 @@ public class ListingController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("listings/editListing");
         } else {
-            listing.setDateListed(LocalDateTime.now());
+            if (listingService.findByMls(listing.getMls()) != null) {
+                Listing oldListing = listingService.findByMls(listing.getMls());
+                listing.setId(oldListing.getId());
+                listing.setDateListed(oldListing.getDateListed());
+            } else {
+                listing.setDateListed(LocalDateTime.now());
+            }
             listingService.saveListing(listing);
 
-            modelAndView.addObject("successMessage", getSuccessMessage(listing));
+            modelAndView.addObject("successMessage", getListingSavedSuccessMessage(listing));
             modelAndView.setViewName("listings/editListing");
         }
         return modelAndView;
     }
 
-    private String getSuccessMessage(Listing listing) {
+    @RequestMapping(value = "/listings/deleteListing", method = RequestMethod.POST)
+    public ModelAndView deleteListing(@RequestParam("listing") String mls) {
+        listingService.deleteByMls(mls);
+        return viewUserListings();
+    }
+
+    @RequestMapping(value = "/listings/viewListing", method = RequestMethod.POST)
+    public ModelAndView viewListing(@RequestParam("listing") String mls) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("listing", listingService.findByMls(mls));
+        modelAndView.setViewName("listings/viewListing");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/listings/viewAllListings", method = RequestMethod.GET)
+    public ModelAndView viewAllListings() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("listings", sortListingsByDate(listingService.findAll()));
+        modelAndView.setViewName("listings/viewAllListings");
+        return modelAndView;
+    }
+
+    private String getListingSavedSuccessMessage(Listing listing) {
         StringBuilder builder = new StringBuilder();
         builder.append(listing.getStreet());
         builder.append(" ");
@@ -84,5 +119,21 @@ public class ListingController {
         }
         builder.append("has been saved successfully!");
         return builder.toString();
+    }
+
+    /**
+     * Helper method to sort listings in chronological order.
+     */
+    private List<Listing> sortListingsByDate(Collection<Listing> collection) {
+        List<Listing> listings = new ArrayList<Listing>(collection);
+
+        // Sort by date added in chronological order.
+        Collections.sort(listings, new Comparator<Listing>() {
+            @Override
+            public int compare(Listing arg0, Listing arg1) {
+                return arg0.getDateListed().compareTo(arg1.getDateListed());
+            }
+        });
+        return listings;
     }
 }

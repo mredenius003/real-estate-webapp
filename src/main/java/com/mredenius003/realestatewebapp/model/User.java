@@ -1,5 +1,6 @@
 package com.mredenius003.realestatewebapp.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -50,9 +51,8 @@ public class User {
     @Column(name = "active")
     private int active;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_listing", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "listing_id"))
-    private Set<Listing> listings;
+    @Column(name = "listingIds")
+    private HashSet<String> mlsIds;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

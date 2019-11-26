@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 import com.mredenius003.realestatewebapp.model.Listing;
 import com.mredenius003.realestatewebapp.model.User;
@@ -32,14 +31,14 @@ public final class MockDataGenerator {
     private static final HashSet<String> IMAGE_PATHS = new HashSet<String>();
     private static final String IMAGE_PATH = "/matt/home/images/";
     private static final String DESCRIPTION = "This is one REALLY cool house!.";
-    private static final Set<Listing> LISTINGS = new HashSet<Listing>();
+    private static final HashSet<String> LISTINGS = new HashSet<String>();
     private static final Random RANDOM = new Random();
     static {
         for (int i = 0; i < 5; i++) {
             IMAGE_PATHS.add(IMAGE_PATH);
         }
         for (int i = 0; i < 8; i++) {
-            LISTINGS.add(generateListing(i));
+            LISTINGS.add(i + "");
         }
     }
 
@@ -48,7 +47,7 @@ public final class MockDataGenerator {
         user.setName(FIRST_NAME);
         user.setLastName(LAST_NAME);
         user.setEmail(EMAIL);
-        user.setListings(LISTINGS);
+        user.setMlsIds(LISTINGS);
         return user;
     }
 

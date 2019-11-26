@@ -58,8 +58,8 @@ public class Listing {
     @NotEmpty(message = "*Please provide a state.")
     private String state;
 
-    @Size(min = 6, max = 6)
-    @EnsureNumber(message = "*Please enter a valid 6 digit zipcode.")
+    @Size(min = 5, max = 5)
+    @EnsureNumber(message = "*Please enter a valid 5 digit zipcode.")
     @Column(name = "zipcode")
     @NotEmpty(message = "*Please provide a zipcode.")
     private String zipcode;
@@ -94,7 +94,7 @@ public class Listing {
 
     @Max(value = 99999999, message = "*No way your house is that big.")
     @Min(value = 0, message = "*Please provide a home size >= 0")
-    @Column(name = "squareFootage")
+    @Column(name = "homeSize")
     @NotNull(message = "*Please provide the size of your home.")
     private Integer homeSize;
 
