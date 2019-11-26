@@ -4,8 +4,7 @@
      xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Add a Listing</title>
-<link rel="stylesheet" type="text/css"
-     th:href="@{/css/registration.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
 <link rel="stylesheet"
      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -166,6 +165,18 @@
                                    <input type="text"
                                         th:field="*{lotSize}"
                                         placeholder="Size of your lot in acres"
+                                        class="form-control" />
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <div class="col-sm-9">
+                                   <label
+                                        th:if="${#fields.hasErrors('price')}"
+                                        th:errors="*{price}"
+                                        class="validation-message"></label>
+                                   <input type="text"
+                                        th:field="*{price}"
+                                        placeholder="Price of your house"
                                         class="form-control" />
                               </div>
                          </div>

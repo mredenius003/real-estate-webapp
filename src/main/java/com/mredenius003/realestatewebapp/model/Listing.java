@@ -108,4 +108,10 @@ public class Listing {
     @Column(name = "description")
     @NotEmpty(message = "*Please provide a description")
     private String description;
+
+    @Max(value = 99999999, message = "*In this economy?? Maybe it should be a little cheaper.")
+    @Min(value = 1, message = "*Please provide a price for your home.")
+    @Column(name = "price")
+    @NotNull(message = "*Please provide a price for your home")
+    private Integer price;
 }

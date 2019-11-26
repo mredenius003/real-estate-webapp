@@ -36,6 +36,7 @@
                          <th scope="col">Garage Size Sqft</th>
                          <th scope="col">Home Size Sqft</th>
                          <th scope="col">Lot Size Acre</th>
+                         <th scope="col">Price</th>
                     </tr>
                </thead>
                <tbody>
@@ -45,13 +46,13 @@
                     <tr class='clickable'
                          th:each="listing : ${listings}">
                          <td>
-                              <form method="POST" th:action="@{/listings/viewListing}">
+                              <form method="POST"
+                                   th:action="@{/listings/viewListing}">
                                    <input type="hidden" name="listing"
                                         id="listing"
                                         th:value="${listing.mls}" />
                                    <button type="submit" name="submit"
-                                        value="value"
-                                        class="btn">View</button>
+                                        value="value" class="btn">View</button>
                               </form>
                          </td>
                          <td><span th:text="${listing.mls}">
@@ -81,6 +82,8 @@
                          <td><span th:text="${listing.homeSize}">
                                    homeSize </span>
                          <td><span th:text="${listing.lotSize}">
+                                   lotSize </span>
+                         <td><span th:text="${listing.price}">
                                    lotSize </span>
                     </tr>
                </tbody>
